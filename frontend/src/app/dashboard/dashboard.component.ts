@@ -100,10 +100,12 @@ export class DashboardComponent implements OnInit {
       data: personContact,
       disableClose: true
     }).afterClosed().subscribe(contact => {
-      if (this.form.value.contactParamsList) {
-        this.deleteContact(personContact);
+      if (contact) {
+        if (this.form.value.contactParamsList) {
+          this.deleteContact(personContact);
+        }
+        this.form.controls.contactParamsList.setValue([...this.form.value.contactParamsList, contact]);
       }
-      this.form.controls.contactParamsList.setValue([...this.form.value.contactParamsList, contact]);
     });
   }
 
@@ -126,7 +128,7 @@ export class DashboardComponent implements OnInit {
       alert("A Pessoa deve possuir ao menos um contato.");
       return;
     }
-    
+
     if (isFormInvalid(this.form)) {
       return;
     }
