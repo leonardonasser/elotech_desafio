@@ -1,0 +1,115 @@
+<div style="display: flex; justify-content: center; margin-top: 100px;">
+  <div class="card">
+
+    <span *ngIf="!fgForm">
+      <div style="text-align: right; margin-right: 10px;">
+        <button (click)="createPerson()" mat-raised-button color="primary">
+          Nova Pessoa
+        </button>
+      </div>
+
+      <table class="table" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cpf</th>
+            <th>Data de aniversário</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of persons">
+            <td>{{person?.name}}</td>
+            <td>{{person?.cpf}}</td>
+            <td>{{person?.birthDate | date:"dd/MM/yyyy"}}</td>
+            <td>
+              <button (click)="editPerson(person.id)" mat-raised-button color="accent" type="button" style="margin-right: 10px;">
+                Editar
+              </button>
+              
+              <button (click)="deletePerson(person.id)" mat-raised-button color="warn" type="button">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </span>
+
+    <span *ngIf="fgForm">
+      <form [formGroup]="form">
+        <div class="mat-tab-body-content">
+
+          <div class="flex items-center" mat-dialog-title>
+            <h4 *ngIf="isCreateMode()" class="headline m-0 flex-auto">Nova Pessoa</h4>
+            <h4 *ngIf="isUpdateMode()" class="headline m-0 flex-auto">Atualizar Pessoa</h4>
+          </div>
+
+            <div class="flex flex-col sm:flex-row">
+              <mat-form-field class="mt-6 flex-auto" style="width: 45%; margin-right: 20px;">
+                <mat-label>Nome</mat-label>
+                <input cdkFocusInitial formControlName="name" matInput>
+              </mat-form-field>
+
+              <mat-form-field class="mt-2 flex-auto" style="width: 45%; margin-right: 20px;">
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" placeholder="000.000.000-00" [mask]="cpfMask"
+                  formControlName="cpf" />
+              </mat-form-field>
+            </div>
+
+            <div class="flex flex-col sm:flex-row" style="margin-top: 25px;">
+              <mat-form-field appearance="fill"  class="mt-2 sm:ml-6 flex-auto" style="width: 45%;">
+                <mat-label>Data de aniversário</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div style="text-align: right; ">
+              <button (click)="createOrUpdateContact(null)" mat-raised-button color="secundary" type="button">
+                Novo Contato
+              </button>
+            </div>
+            <table class="table" style="margin-top: 20px;">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                  <th>Opções</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of this.form.value.contactParamsList">
+                  <td>{{contact?.name}}</td>
+                  <td>{{contact?.email}}</td>
+                  <td>{{contact?.phone}}</td>
+                  <td>
+                    <button (click)="createOrUpdateContact(contact)" mat-raised-button color="accent" type="button" style="margin-right: 10px;">
+                      Editar
+                    </button>
+                    
+                    <button (click)="deleteContact(contact)" mat-raised-button color="warn" type="button">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="button-container">
+              <button (click)="fgForm = false" mat-raised-button color="secondary" style="margin-right: 10px;">
+                Voltar na Lista
+              </button>
+            
+              <button (click)="save()" mat-raised-button color="primary">
+                Salvar
+              </button>
+            </div>
+        </div>
+      </form>
+    </span>
+  </div>
+</div>

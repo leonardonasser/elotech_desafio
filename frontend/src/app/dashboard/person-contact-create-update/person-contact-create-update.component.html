@@ -1,0 +1,45 @@
+<form [formGroup]="formContact">
+
+  <div style="text-align: right; margin-right: 10px;">
+    <button class="text-secondary" (click)="cancel()" mat-icon-button type="button">
+      X
+    </button>
+  </div>
+
+  <div class="flex items-center" mat-dialog-title>
+    <h4 *ngIf="isCreateMode()" class="headline m-0 flex-auto">Novo Contato</h4>
+    <h4 *ngIf="isUpdateMode()" class="headline m-0 flex-auto">Atualizar Contato</h4>
+  </div>
+
+  <mat-dialog-content class="flex flex-col" style="width: 600px;">
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="mt-6 flex-auto" style="width: 45%; margin-right: 20px;">
+        <mat-label>Nome</mat-label>
+        <input cdkFocusInitial formControlName="name" matInput>
+      </mat-form-field>
+
+      <mat-form-field class="mt-2 flex-auto" style="width: 45%; margin-right: 20px;">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" formControlName="email" />
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="mt-6 flex-auto" style="width: 45%; margin-right: 20px;">
+        <mat-label>Telefone</mat-label>
+        <input cdkFocusInitial formControlName="phone" matInput>
+      </mat-form-field>
+     </div>
+
+
+     <div style="text-align: right; ">
+      <button (click)="save()" mat-raised-button color="secundary">
+        <span  *ngIf="isCreateMode()">Novo Contato </span>
+        <span  *ngIf="isUpdateMode()">Atualizar Contato </span>
+      </button>
+    </div>
+  </mat-dialog-content>
+
+
+
+</form>

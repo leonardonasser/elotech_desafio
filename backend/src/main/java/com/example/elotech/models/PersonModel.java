@@ -30,7 +30,7 @@ public class PersonModel implements Serializable {
     private String cpf;
 
     @NotNull
-    @Column(name = "bith_date", nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "personModel")
